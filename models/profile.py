@@ -25,7 +25,7 @@ class Profile(BaseModel, Base):
     linkedin = Column(String(255), nullable=True)
     github = Column(String(255), nullable=True)
     reviews = Column(Text, nullable=True)
-    category = relationship("Category", back_populates="profile", uselist=False)
+
 
     def __init__(self, *args, **kwargs):
         """Initializes the Profile class"""
@@ -33,26 +33,7 @@ class Profile(BaseModel, Base):
 
 
 from models.user import User
+from models.category import Category
 # Declares table relationship after class declaration to avoid circular imports
 Profile.user = relationship("User", back_populates="profile", uselist=False)
-
-# List of relevant 'Users' table column
-user_column = ["firstname", "lastname", "email"]
-
-# Access database engine and bind it to the Base
-db = Database()
-engine = db.engine
-Base.metadata.bind = engine
-
-# Reflect the existing 'Users' table to inherit its column
-metadata = MetaData(bind=Base.metadata.bind)
-user_table = Table('Users', metadata, autoload_with=Base.metadata.bind)
-
-# Copy the relevant columns from the 'Users' table 
-for column in user_table.c:
-    if column.name in user_column:
-        locals()[column.name] = column
-
-mapper(Profile, Profile.user_table, properties={
-    col: Profile.__dict__[col] for col in Profile.user_table.c.keys() if col.name in user_column
-})
+Profile.category = relationship("Category", back_populates="profile", uselist=False)

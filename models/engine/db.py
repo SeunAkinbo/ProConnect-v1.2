@@ -43,6 +43,11 @@ class Database:
         except Exception as e:
             Logger().save_log(str(e), __class__.__name__, "Database_Error")
 
+    @property
+    def engine(self):
+        """Returns the engine"""
+        return self.__engine
+    
     def reload(self):
         """Reloads the database"""
         if self.__engine is None:

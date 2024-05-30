@@ -1,0 +1,5 @@
+CREATE DATABASE IF NOT EXISTS ProConnectDB;
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'proConnectAdmin';
+GRANT ALL PRIVILEGES ON ProConnectDB.* TO 'admin'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;

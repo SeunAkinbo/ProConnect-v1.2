@@ -10,7 +10,8 @@ from models.base_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-objects = {"User": "User", "Education": "Education", "Payment": "Payment"}
+objects = {"User": "User", "Education": "Education", "Skill": "Skill", "Profile": "Profile",
+           "Category": "Category"}
 
 
 class Database:
